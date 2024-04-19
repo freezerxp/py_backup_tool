@@ -1,5 +1,4 @@
 {
-	//Настройки резеврного копирования файлов (фактически папапок)
 	"files":[
 		{
 			"data":"C:\\folder1",
@@ -10,7 +9,6 @@
 			"backup":"C:\\backups\\folder2\\folder3"
 		}	
 	],
-	//Настройки резеврного копирования баз данных MySQL
 	"mysql":{
 		"backupFolder":"C:\\backups\\mysql",
 		"auth":{
@@ -21,19 +19,17 @@
 			"users", "client", "partners"
 		]
 	},
-	//Пути к исполняющим файлам
 	"paths":{
 		"sevenzip":"C:\\Program Files\\7-Zip\\7z.exe",
 		"mysqldump":"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe",
 		"gitExe":"C:\\Program Files\\Git\\bin\\git.exe"
 	},
-	//Настройки резервного копирования git репозиториев из github
 	"git":{
 		"backupFolder":"C:\\backups\\git",
 		"repositories":[
 			"repo1", "pero2"
 		],
-		"owner":"gitUserName", //имя пользователя и владелец репозиториев
-		"token":"Fine-grained personal access token" //see https://github.com/settings/tokens?type=beta
+		"owner":"gitUserName", 
+		"token":"Fine-grained personal access token see https://github.com/settings/tokens?type=beta"
 	}
 }
