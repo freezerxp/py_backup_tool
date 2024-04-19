@@ -31,5 +31,12 @@
 		],
 		"owner":"gitUserName", 
 		"token":"Fine-grained personal access token see https://github.com/settings/tokens?type=beta"
+	},
+	"rocketChat":{
+		"enable":false, 
+		"server":"https://rocketchat.example.com", 
+		"user":"bot", 
+		"pass":"PassWoordd", 
+		"channel":"Notifications" 
 	}
 }

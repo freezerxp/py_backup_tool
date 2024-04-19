@@ -3,7 +3,7 @@ import datetime
 import os
 import subprocess
 import json
-import rocketchat #логика в скрипте, требуется установа модуля
+import mesages
 import humanize #требуется установка модуля
 
 msgs = []
@@ -75,4 +75,4 @@ def doBackup():
         addMsg('Создан архив: '+archiveFileName + ', ' + humanize.naturalsize(aSize))
 
     addMsg('Завершено')
-    rocketchat.sendMsg(''.join(msgs))
+    mesages.sendMsg(''.join(msgs))

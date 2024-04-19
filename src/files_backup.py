@@ -10,8 +10,7 @@ import datetime
 import os
 import subprocess
 import json
-import rocketchat #используется скрипт, требуется установка модуля
-import humanize #требуется установка модуля
+import mesages 
 
 #массив сообщений
 msgs = []
@@ -54,4 +53,4 @@ def doBackup():
 	addMsg('Резервное копирование заверешно')
 
 
-	rocketchat.sendMsg(''.join(msgs))
+	mesages.sendMsg(''.join(msgs))

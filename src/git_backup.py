@@ -7,7 +7,7 @@ import subprocess
 import os
 import json
 import datetime
-import rocketchat
+import mesages
 import humanize #требуется установка модуля
 import send2trash #требуется установка модуля. Используется для удаления файлов, т.к. shutil.rmtree не может удалить...
 
@@ -78,4 +78,4 @@ def doBackup():
     send2trash.send2trash(temp_folder)
 
     addMsg('Создание бэкапа репозиториев заверешно')
-    rocketchat.sendMsg(''.join(msgs))
+    mesages.sendMsg(''.join(msgs))

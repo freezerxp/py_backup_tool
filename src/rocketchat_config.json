@@ -1,7 +1,0 @@
-{
-	"enable":false, 
-	"server":"https://rocketchat.example.com", 
-	"user":"bot", 
-	"pass":"PassWoordd", 
-	"channel":"Notifications" 
-}
