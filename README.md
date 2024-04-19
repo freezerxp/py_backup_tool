@@ -39,3 +39,12 @@
   - repositories - массив имен репозиториев
   - owner - пользователь и владелец
   - token - токен (Fine-grained personal access token, получить можно здесь: https://github.com/settings/tokens?type=beta)
+ 
+## Настройка уведомлений в Rocket.Chat
+Настройка уведомлений в Rocket.Chat в файле rocketchat_config.json:
+- enable - true/false, включено/выключено
+- server - сервер rocket.chat
+- user - пользователь, от имени коготорого будут отправляться сообщения
+- pass - пароль пользователя
+- channel - канал (чат), в который будут отправляться уведомления
+
