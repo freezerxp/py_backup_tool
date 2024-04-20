@@ -3,6 +3,9 @@ from telegram import Bot #неоходима установка модуля pyt
 
 import os
 import json
+import asyncio
+
+
 
 curdir = os.getcwd()
 
@@ -15,12 +18,12 @@ def sendMsg(message):
 	if(data['rocketChat']['enable'] == True):
 		sendMsgToRocketChat(message)
 	if(data['telegram']['enable'] == True):
-		sendMsgToTelegram(message)
+		asyncio.run(sendMsgToTg(message))
 
-def sendMsgToTg(message):
+async def sendMsgToTg(message):
 	chat_id= data['telegram']['chatId']
-    bot = Bot(token=data['telegram']['toketn'])
-    bot.send_message(chat_id=chat_id, text=message)
+	bot = Bot(token=data['telegram']['token'])
+	await bot.send_message(chat_id=chat_id, text=message)
 
 
 def sendMsgToRocketChat(message):
@@ -37,5 +40,3 @@ def sendMsgToRocketChat(message):
 	channel_name = data['rocketChat']['channel']
 	rocket.chat_post_message(message, channel=channel_name)
 
-def sendMsgToTelegram(message):
-	return
