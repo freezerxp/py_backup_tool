@@ -7,6 +7,6 @@ import files_backup
 import git_backup
 import mysql_backup
 
-files_backup.doBackup()
-mysql_backup.doBackup()
-git_backup.doBackup()
+files_backup.do_backup()
+mysql_backup.do_backup()
+git_backup.do_backup()

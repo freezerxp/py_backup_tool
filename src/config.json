@@ -1,35 +1,44 @@
 {
+	"machineName": "server1",
+	"backupFolder": "c:\\backup",
 	"files":[
 		{
-			"data":"C:\\folder1",
-			"backup":"C:\\backups\\folder1"
+			"path":"C:\\folder1",
+			"alias":"folder1"
 		},
 		{
-			"data":"C:\\folder3",
-			"backup":"C:\\backups\\folder2\\folder3"
+			"path":"C:\\folder2\\folder3",
+			"alias":"folder3"
 		}	
 	],
-	"mysql":{
-		"backupFolder":"C:\\backups\\mysql",
-		"auth":{
-			"user":"root",
-			"pass":"PAssWoord"
-		},
-		"dbs":[
-			"users", "client", "partners"
-		]
-	},
+	"mysql":[
+		{
+			"alias": "my db1",
+			"auth":{
+				"user":"root",
+				"pass":"PAssWoord"
+			},
+			"dbs":["users", "client", "partners"]
+		}
+
+	],
 	"paths":{
 		"sevenzip":"C:\\Program Files\\7-Zip\\7z.exe",
 		"mysqldump":"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe",
 		"gitExe":"C:\\Program Files\\Git\\bin\\git.exe"
 	},
 	"git":{
-		"backupFolder":"C:\\backups\\git",
 		"repositories":[
-			"repo1", "pero2"
+			{
+				"owner": "owner1",
+				"name": "repo1"
+			},
+			{
+				"owner": "owner2",
+				"name": "repository123"
+			}
 		],
-		"owner":"gitUserName", 
+		"user":"gitUserName",
 		"token":"Fine-grained personal access token see https://github.com/settings/tokens?type=beta"
 	},
 	"rocketChat":{

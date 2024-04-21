@@ -1,78 +1,76 @@
-#импортируем модули
+# импортируем модули
 import datetime
 import os
 import subprocess
-import json
 import messages
-import humanize #требуется установка модуля
+import sevenzip
+import config
 
 msgs = []
 
-def addMsg(msg):
-    m= datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S") + ' | ' + msg + '\n'
+
+def add_msg(msg: str):
+    m = datetime.datetime.now().strftime("%d.%m.%Y %H:%M:%S") + ' | ' + msg + '\n'
     msgs.append(m)
     print(m)
 
-def doBackup():
-    #объявлем переменные
-    addMsg('Начинаю создание бэкапа баз данных')
 
-    curdir = os.getcwd()
-    # Открываем JSON-файл для чтения
-    with open(curdir+'\\config.json', 'r') as json_file:
-        # Загружаем данные из JSON-файла
-        data = json.load(json_file)
+def do_backup():
 
-    #утилита для дампов
-    mysqldump = data['paths']['mysqldump']
+    add_msg('Начинаю создание бэкапа баз данных')
 
-    #путь к 7zip архиватору
-    sevenzip = data['paths']['sevenzip']
+    cfg = config.get_config()
 
-    #папка для бэкапов
-    backupfolder = data['mysql']['backupFolder']
+    # утилита для дампов
+    mysqldump = cfg['paths']['mysqldump']
 
-    #базы данных
-    dbarray = data['mysql']['dbs']
+    mysql_array = cfg['mysql']
 
-    #аргументы для авторизации
-    dbuser = data['mysql']['auth']['user']
-    dbpass = data['mysql']['auth']['pass']
+    for mysql in mysql_array:
 
-    ############################
+        # базы данных
+        dbarray = mysql['dbs']
 
+        # аргументы для авторизации
+        dbuser = mysql['auth']['user']
+        dbpass = mysql['auth']['pass']
 
+        # для всех БД в массиве
+        for db in dbarray:
+            add_msg('Начинаю создание архива для БД: ' + db)
+            # подпапка для бэкапа
+            backup_folder_path = (cfg['backupFolder'] + '\\' +
+                                  cfg['machineName'] + '\\' +
+                                  'mysql\\' +
+                                  mysql['alias'])
 
-    #для всех БД в массиве
-    for db in dbarray:
-       
-        addMsg('Начинаю создание архива для БД: '+db)
-        #подпапка для бэкапа
-        sub_backupfolder = backupfolder + '\\' + db
+            # создаю подпапку
+            os.makedirs(backup_folder_path, exist_ok=True)
 
-        #создаю подпапку
-        os.makedirs(sub_backupfolder, exist_ok=True)
+            # имена для файлов
+            filename = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-        #имена для файлов
-        filename = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            # имя файла дампа
+            dump_file_name = backup_folder_path + '\\' + filename + '(' + db + ').sql'
 
-        #имя файла дампа
-        dumpFileName = sub_backupfolder +'\\' + filename +'('+db+').sql'
+            # запускаю создание дампа
+            output = subprocess.run([mysqldump,
+                                     '--user=' + dbuser,
+                                     '--password=' + dbpass,
+                                     '--result-file=' + dump_file_name,
+                                     '--databases', db],
+                                    shell=True,
+                                    capture_output=True)
+            print(output.stdout)
 
-        #запускаю создание дампа
-        output = subprocess.run([mysqldump, '--user='+dbuser, '--password='+dbpass, '--result-file='+dumpFileName, '--databases', db], shell=True, capture_output=True)
-        print(output.stdout)
+            # имя файла архива
+            archive_file_name = backup_folder_path + '\\' + filename + '.zip'
 
-        #имя файла архива
-        archiveFileName = sub_backupfolder +'\\' + filename + '.zip'
+            result = sevenzip.create_archive(dump_file_name, archive_file_name)
+            add_msg(result['message'])
 
-        #создаю архив
-        output = subprocess.run([sevenzip, 'a', archiveFileName, dumpFileName], shell=True, capture_output=True)
-        print(output.stdout)
-        aSize = os.path.getsize(archiveFileName)
-        #удаляю файл дампа
-        os.remove(dumpFileName)
-        addMsg('Создан архив: '+archiveFileName + ', ' + humanize.naturalsize(aSize))
+            # удаляю файл дампа
+            os.remove(dump_file_name)
 
-    addMsg('Завершено')
+    add_msg('Завершено')
     messages.sendMsg(''.join(msgs))
