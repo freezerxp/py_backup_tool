@@ -11,6 +11,8 @@ import os
 import subprocess
 import json
 import messages 
+import humanize #требуется установка модуля
+
 
 #массив сообщений
 msgs = []
