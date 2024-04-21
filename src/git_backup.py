@@ -7,7 +7,7 @@ import subprocess
 import os
 import json
 import datetime
-import mesages
+import messages
 import humanize #требуется установка модуля
 import send2trash #требуется установка модуля. Используется для удаления файлов, т.к. shutil.rmtree не может удалить...
 
@@ -28,7 +28,7 @@ def doBackup():
     curdir = os.getcwd()
 
     # Открываем настройки резеврного копирования
-    with open(curdir+'\\backup_config.json', 'r') as json_file:
+    with open(curdir+'\\config.json', 'r') as json_file:
         # Загружаем данные из JSON-файла
         backupConfig = json.load(json_file)
 
@@ -78,4 +78,4 @@ def doBackup():
     send2trash.send2trash(temp_folder)
 
     addMsg('Создание бэкапа репозиториев заверешно')
-    mesages.sendMsg(''.join(msgs))
+    messages.sendMsg(''.join(msgs))

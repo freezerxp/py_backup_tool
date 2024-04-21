@@ -3,7 +3,7 @@ import datetime
 import os
 import subprocess
 import json
-import mesages
+import messages
 import humanize #требуется установка модуля
 
 msgs = []
@@ -19,7 +19,7 @@ def doBackup():
 
     curdir = os.getcwd()
     # Открываем JSON-файл для чтения
-    with open(curdir+'\\backup_config.json', 'r') as json_file:
+    with open(curdir+'\\config.json', 'r') as json_file:
         # Загружаем данные из JSON-файла
         data = json.load(json_file)
 
@@ -75,4 +75,4 @@ def doBackup():
         addMsg('Создан архив: '+archiveFileName + ', ' + humanize.naturalsize(aSize))
 
     addMsg('Завершено')
-    mesages.sendMsg(''.join(msgs))
+    messages.sendMsg(''.join(msgs))
