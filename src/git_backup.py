@@ -9,6 +9,7 @@ import config
 import datetime
 import sevenzip
 import messages
+import ya_cloud
 
 # требуется установка модуля. Используется для удаления файлов,
 # т.к. shutil.rmtree не может удалить...
@@ -78,6 +79,10 @@ def do_backup():
         archive_path = backup_folder_path + '\\' + filename + '.zip'
         result = sevenzip.create_archive(repo_folder, archive_path)
         add_msg(result['message'])
+
+        if cfg['yandexCloud']['enable']:
+            cloud_result = ya_cloud.upload_file(archive_path)
+            add_msg(cloud_result['message'])
 
     send2trash.send2trash(temp_folder)
 

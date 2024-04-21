@@ -5,6 +5,7 @@ import subprocess
 import messages
 import sevenzip
 import config
+import ya_cloud
 
 msgs = []
 
@@ -64,10 +65,14 @@ def do_backup():
             print(output.stdout)
 
             # имя файла архива
-            archive_file_name = backup_folder_path + '\\' + filename + '.zip'
+            archive_path = backup_folder_path + '\\' + filename + '.zip'
 
-            result = sevenzip.create_archive(dump_file_name, archive_file_name)
+            result = sevenzip.create_archive(dump_file_name, archive_path)
             add_msg(result['message'])
+
+            if cfg['yandexCloud']['enable']:
+                cloud_result = ya_cloud.upload_file(archive_path)
+                add_msg(cloud_result['message'])
 
             # удаляю файл дампа
             os.remove(dump_file_name)

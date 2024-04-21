@@ -2,6 +2,8 @@ import config
 import subprocess
 import os
 import humanize
+import ya_cloud
+
 
 #Создание архива
 def create_archive(data_path, archive_path):

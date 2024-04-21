@@ -52,5 +52,12 @@
 		"enable":false,
 		"token":"YOUR_API_TOKEN",
 		"chatId":"987654321"
+	},
+	"yandexCloud": {
+		"enable": false,
+		"bucketName": "backup_bucket",
+		"accessKey": "blaBlaBla",
+		"secretKey": "very_secret_key",
+		"parentPath": "my/back/ups"
 	}
 }

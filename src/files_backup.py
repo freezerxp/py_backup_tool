@@ -10,6 +10,7 @@ import os
 import config
 import messages
 import sevenzip
+import ya_cloud
 
 # массив сообщений
 msgs = []
@@ -48,6 +49,11 @@ def do_backup():
         result = sevenzip.create_archive(data_path, archive_path)
 
         add_msg(result['message'])
+
+        if cfg['yandexCloud']['enable']:
+            cloud_result = ya_cloud.upload_file(archive_path)
+            add_msg(cloud_result['message'])
+
 
     add_msg('Резервное копирование заверешно')
 
