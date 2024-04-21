@@ -43,7 +43,8 @@ def do_backup():
             backup_folder_path = (cfg['backupFolder'] + '\\' +
                                   cfg['machineName'] + '\\' +
                                   'mysql\\' +
-                                  mysql['alias'])
+                                  mysql['alias'] + '\\' +
+                                  db)
 
             # создаю подпапку
             os.makedirs(backup_folder_path, exist_ok=True)
