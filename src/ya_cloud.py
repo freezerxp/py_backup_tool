@@ -21,7 +21,7 @@ def upload_file(file_path):
         s3_client = boto3.client(
             's3',
             aws_access_key_id=ya_cfg['accessKey'],
-            aws_secret_access_key=ya_cfg['accessKey'],
+            aws_secret_access_key=ya_cfg['secretKey'],
             endpoint_url='https://storage.yandexcloud.net'
         )
 
