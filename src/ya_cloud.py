@@ -11,7 +11,7 @@ def upload_file(file_path):
 
         ya_cfg = cfg['yandexCloud']
 
-        object_name = file_path.replace(backup_folder, ya_cfg['parentPath'])
+        object_name = file_path.replace(backup_folder, ya_cfg['parentPath']).replace('\\','/')
 
         if not ya_cfg['enable']:
             return {'result':True,
